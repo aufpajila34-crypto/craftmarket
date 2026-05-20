@@ -141,12 +141,38 @@ function handleAdminLogin(e) {
 // Site Settings Logic
 function handleVideoUpdate(e) {
   e.preventDefault();
-  const url = document.getElementById('heroVideoUrl').value;
-  localStorage.setItem('heroVideo', url);
-  
+  const fileInput = document.getElementById('heroVideoFile');
   const successMsg = document.getElementById('videoUpdateSuccess');
-  successMsg.style.display = 'block';
-  setTimeout(() => {
-    successMsg.style.display = 'none';
-  }, 3000);
+  const errorMsg = document.getElementById('videoUpdateError');
+  const btn = document.getElementById('uploadVideoBtn');
+  
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    
+    // Check if file is too large for localStorage (e.g. > 3.5MB to be safe with base64 overhead)
+    if (file.size > 3.5 * 1024 * 1024) {
+      errorMsg.style.display = 'block';
+      successMsg.style.display = 'none';
+      return;
+    }
+    
+    btn.innerText = 'Uploading...';
+    btn.disabled = true;
+    errorMsg.style.display = 'none';
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        localStorage.setItem('heroVideo', e.target.result);
+        successMsg.style.display = 'block';
+        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+      } catch (err) {
+        errorMsg.innerText = 'Error saving video. It might be too large for local storage.';
+        errorMsg.style.display = 'block';
+      }
+      btn.innerText = 'Upload Video';
+      btn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+  }
 }

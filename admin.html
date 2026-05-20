@@ -251,11 +251,12 @@
           <h3 style="margin-bottom: 1rem;">Hero Section Video</h3>
           <form id="heroVideoForm" onsubmit="handleVideoUpdate(event)">
             <div style="margin-bottom: 1rem;">
-              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Video URL or Filename</label>
-              <input type="text" id="heroVideoUrl" class="admin-input" style="width: 100%; max-width: 400px;" placeholder="e.g. ./video.mp4" required>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Upload Video File (Max 3MB for local storage)</label>
+              <input type="file" id="heroVideoFile" class="admin-input" accept="video/*" style="width: 100%; max-width: 400px;" required>
             </div>
-            <button type="submit" class="btn btn-primary">Update Video</button>
+            <button type="submit" class="btn btn-primary" id="uploadVideoBtn">Upload Video</button>
             <div id="videoUpdateSuccess" style="color: var(--success); margin-top: 1rem; display: none;">Video updated successfully!</div>
+            <div id="videoUpdateError" style="color: var(--error); margin-top: 1rem; display: none;">Video too large! Please select a smaller video.</div>
           </form>
         </div>
       </section>
