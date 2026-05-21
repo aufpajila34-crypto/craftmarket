@@ -464,8 +464,8 @@ button {
   justify-content: center;
   text-align: center;
   padding: 6rem 2rem 2rem;
-  height: 50vh;
-  min-height: 50vh;
+  height: 65vh;
+  min-height: 65vh;
 }
 
 .hero-bg-video {
